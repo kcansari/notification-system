@@ -1,0 +1,28 @@
+{
+	"name": "notification-system",
+	"version": "1.0.0",
+	"description": "",
+	"main": "index.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"dev": "tsx src/index.ts"
+	},
+	"keywords": [],
+	"author": "kemal can sarı",
+	"license": "ISC",
+	"devDependencies": {
+		"@types/node": "^24.10.1",
+		"@types/nodemailer": "^7.0.4",
+		"install": "^0.13.0",
+		"prettier": "^3.7.4",
+		"tsx": "^4.21.0",
+		"typescript": "^5.9.3"
+	},
+	"packageManager": "pnpm@10.12.3+sha512.467df2c586056165580ad6dfb54ceaad94c5a30f80893ebdec5a44c5aa73c205ae4a5bb9d5ed6bb84ea7c249ece786642bbb49d06a307df218d03da41c317417",
+	"dependencies": {
+		"dotenv": "^17.2.3",
+		"nodemailer": "^7.0.11",
+		"ts-retry-promise": "^0.8.1",
+		"winston": "^3.18.3"
+	}
+}
