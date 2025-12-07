@@ -18,7 +18,5 @@ pnpm install && pnpm dev
 
 - Email ✅
 - SMS ✅
-- Slack (coming soon)
-- Discord (coming soon)
 
 Questions? Feel free to reach out: kcansari0@gmail.com
