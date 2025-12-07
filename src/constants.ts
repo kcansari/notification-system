@@ -32,3 +32,12 @@ export const permanentPatterns = [
   /does not exist/i,
   /rejected/i,
 ];
+
+export const retryableTwilioCodes = [
+  20429, // Too Many Requests
+  20500, // Service unavailable
+  20503, // Service unavailable
+  30001, // Queue overflow
+  30003, // Unreachable destination
+  30005, // Unknown destination
+];

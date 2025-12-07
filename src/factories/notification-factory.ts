@@ -2,18 +2,18 @@ import { Logger } from "winston";
 import { EmailConfig, EmailNotifier } from "@/notifiers/email-notifier";
 import { NotificationType, RetryOptions } from "@/types/notification.types";
 import { BaseNotifier } from "@/notifiers/base-notifier";
-import { NotificationPayload } from "@/interfaces/notifier.interface";
+import { SMSConfig } from "@/interfaces/notifier.interface";
 import { DEFAULT_RETRY_OPTIONS } from "@/constants";
+import { SMSNotifier } from "@/notifiers/sms-notifier";
 
 export interface NotificationFactoryConfig {
   email?: EmailConfig;
+  sms?: SMSConfig;
 }
 
 export class NotificationFactory {
-  private static notifiers: Map<
-    NotificationType,
-    BaseNotifier<NotificationPayload, unknown>
-  > = new Map();
+  private static notifiers: Map<NotificationType, BaseNotifier<any, any>> =
+    new Map();
   private static logger: Logger;
   private static config: NotificationFactoryConfig;
 
@@ -27,7 +27,7 @@ export class NotificationFactory {
   static createNotifier(
     type: NotificationType,
     retryOptions: RetryOptions = DEFAULT_RETRY_OPTIONS,
-  ): BaseNotifier<NotificationPayload, unknown> {
+  ): BaseNotifier<any, any> {
     if (this.notifiers.has(type)) {
       return this.notifiers.get(type)!;
     }
@@ -38,7 +38,7 @@ export class NotificationFactory {
       );
     }
 
-    let notifier: BaseNotifier<NotificationPayload, unknown>;
+    let notifier: BaseNotifier<any, any>;
 
     switch (type) {
       case NotificationType.EMAIL:
@@ -53,7 +53,11 @@ export class NotificationFactory {
         break;
 
       case NotificationType.SMS:
-        throw new Error("SMS notifications not yet implemented");
+        if (!this.config.sms) {
+          throw new Error("Email configuration not provided");
+        }
+        notifier = new SMSNotifier(this.config.sms, this.logger, retryOptions);
+        break;
 
       case NotificationType.PUSH:
         throw new Error("Push notifications not yet implemented");
@@ -73,7 +77,7 @@ export class NotificationFactory {
 
   static registerNotifier(
     type: NotificationType,
-    notifier: BaseNotifier<NotificationPayload, unknown>,
+    notifier: BaseNotifier<any, any>,
   ): void {
     this.notifiers.set(type, notifier);
     this.logger.info(`Registered custom notifier for type: ${type}`);

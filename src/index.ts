@@ -38,6 +38,11 @@ NotificationFactory.initialize(
         pass: process.env.SMTP_PASS!,
       },
     },
+    sms: {
+      accountSid: process.env.TWILIO_ACCOUNT_SID!,
+      authToken: process.env.TWILIO_AUTH_TOKEN!,
+      fromNumber: process.env.TWILIO_FROM_NUMBER!,
+    },
   },
   logger,
 );
@@ -54,4 +59,14 @@ const notificationService = new NotificationService(logger);
   });
 
   logger.info("Welcome email result", { result });
+})();
+
+(async () => {
+  const result = await notificationService.sendSMS({
+    from: process.env.TWILIO_FROM_NUMBER!,
+    to: process.env.TWILIO_TO_NUMBER!,
+    message: `Your verification code is: ${1234}`,
+  });
+
+  logger.info("Verification SMS result", { result });
 })();

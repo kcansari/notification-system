@@ -5,6 +5,7 @@ import {
   EmailPayload,
   NotificationPayload,
   NotificationResult,
+  SMSPayload,
 } from "@/interfaces/notifier.interface";
 import { NotificationFactory } from "@/factories/notification-factory";
 
@@ -33,6 +34,10 @@ export class NotificationService {
 
   async sendEmail(payload: EmailPayload): Promise<NotificationResult> {
     return this.send(NotificationType.EMAIL, payload);
+  }
+
+  async sendSMS(payload: SMSPayload): Promise<NotificationResult> {
+    return this.send(NotificationType.SMS, payload);
   }
 
   async sendMultiChannel(

@@ -17,7 +17,7 @@ pnpm install && pnpm dev
 ## Channels
 
 - Email ✅
-- SMS (coming soon)
+- SMS ✅
 - Slack (coming soon)
 - Discord (coming soon)
 

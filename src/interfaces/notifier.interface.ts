@@ -44,3 +44,16 @@ export interface SendGridResponse {
 }
 
 export type NotificationPayload = EmailPayload | SMSPayload;
+
+export interface SMSConfig {
+  accountSid: string;
+  authToken: string;
+  fromNumber: string;
+}
+
+export interface TwilioResponse {
+  sid: string;
+  status: string;
+  to: string;
+  from: string;
+}
